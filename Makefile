@@ -34,7 +34,7 @@ cleanall:         # Deep clean, including docker system prune if docker is used,
 	$(MAKE) clean-docker
 	$(MAKE) novenv
 
-build:            # Do the primary build target, this can be `dist`, `setup`, etc depending on the content of the repository 
+build:            # TODO: Document here what build means for this repo
 	$(NOTIMPLEMENTED)
 
 test:             # Execute tests
