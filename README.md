@@ -5,7 +5,7 @@
 Regular targets should abstract specific repository processes:
 
 Target | Action
-=== | ===
+--- | ---
 `help` |  Should print a basic help describing the main targets
 `clean` | Cleans generated artifacts
 `cleanall` | Deep clean, including docker system prune if docker is used, venv, etc.
