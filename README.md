@@ -6,6 +6,7 @@ Regular targets should abstract specific repository processes:
 
 Target | Action
 --- | ---
+`configure` | configures project build environment file: `env.sh`
 `help` |  Should print a basic help describing the main targets
 `clean` | Cleans generated artifacts
 `cleanall` | Deep clean, including docker system prune if docker is used, venv, etc.
@@ -13,10 +14,17 @@ Target | Action
 `test` | Execute tests
 `release` | Create a branch and tag for VERSION on pure code repositories, publish to package repository for packaged software
 `rc` | tag release candidate for CI/CD
-`releasecandidate` | alias for rc
+`releasecandidate` | alias for `rc`
+`lint` | run repository relevant linter
 
 ## Vendor and Venv
 
 * If necessary, a `vendor` or `venv` directory shall be created with its own Makefile that will configure the required additional softwaare
 
 > `vendor` may be used for Ruby Gems, PHP Dependencies and Composer Packages, NPM Packages. `venv` is used for PyPI packages
+
+
+## Inspired by
+
+https://github.com/audreyfeldroy/cookiecutter-pypackage
+https://github.com/imaerials/ansible-home-lab

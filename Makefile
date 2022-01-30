@@ -20,6 +20,9 @@ help:             # show quick list of actions
 
 # General Makefile Targets
 # These should be the public interface and invoke Make with repository specific targets
+config:           # Configures the default make behavior. Hint: Use make venv configure as a last resort if plain make configure doesn't work.
+configure:        # Alias for config
+	@$(VENV) python3 ./configure.py
 
 clean:            # Cleans generated artifacts
 	$(MAKE) clean-pyc
@@ -38,10 +41,11 @@ build:            # TODO: Document here what build means for this repo
 	$(NOTIMPLEMENTED)
 
 test:             # Execute tests
-	$(VENV) pytest --version
+	@$(VENV) pytest --version
 	$(NOTIMPLEMENTED)
 
 release:          # Create a branch and tag for VERSION on pure code repositories, publish to package repository for packaged software
+	@$(MAKE) release-tag
 	$(NOTIMPLEMENTED)
 
 rc:               # tag release candidate for CI/CD
@@ -50,19 +54,34 @@ rc:               # tag release candidate for CI/CD
 releasecandidate: # alias for rc
 	@$(MAKE) rc
 
+# TODO: Add better reset handling
 git-reset:        # Reset git repository to HEAD
 	@git reset --hard origin/master
 
 
-# Ops Requirements
+## Release
+# Check current version against released versions
+## Autobump --> Variable AUTOBUMP_LEVEL = none, fix, minor. (Assume major version changes are breaking and should be handled by human)
+release-tag:
+	$(NOTIMPLEMENTED)
 
-venv: venv/py3    # Create and use local virtul environment
+release-pypi:
+	$(NOTIMPLEMENTED)
+
+release-docker:
+	$(NOTIMPLEMENTED)
+
+# Ops Requirements
+venv:             # Create and use local virtul environment
+venv: venv/py3
 venv/py3:
-	$(MAKE) -C venv enable
+	@$(MAKE) -C venv enable
 
 novenv:           # Remove local virtualenvironment and delegate dependencies management to invoker
-	$(MAKE) -C venv disable
+	@$(MAKE) -C venv disable
 
+update-venv:      # Update venv with requirements
+	@$(MAKE) -C venv enable
 
 # General Docker Compose Targets
 start-docker:     # Start the compose environment
@@ -85,7 +104,7 @@ clean-cache:
 
 ## remove docs
 clean-docs:
-	$(MAKE) -C docs clean
+	@$(MAKE) -C docs clean
 
 ## remove build artifacts
 clean-build: 
