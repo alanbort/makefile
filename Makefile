@@ -1,4 +1,6 @@
 # Macros
+DISTRIBUTION := $(shell lsb_release -cs)
+VERSION := $(shell cat VERSION)
 HELP_MAKE_TARGETS = @cat Makefile | \
                     grep -E -e '[a-z\-]*:\s*[a-z]*\-?[a-z]* \#.*$$' | \
                     grep -v '^ *\#' | \
@@ -21,8 +23,9 @@ help:             # show quick list of actions
 # General Makefile Targets
 # These should be the public interface and invoke Make with repository specific targets
 config:           # Configures the default make behavior. Hint: Use make venv configure as a last resort if plain make configure doesn't work.
-configure:        # Alias for config
 	@$(VENV) python3 ./configure.py
+configure:        # Alias for config
+	@$(MAKE) config
 
 clean:            # Cleans generated artifacts
 	$(MAKE) clean-pyc
